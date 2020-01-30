@@ -1,0 +1,6 @@
+elk					-dokumentasi
+elassandra			-belum keriset
+Grafana				-customisasi?
+Apache superset		-customisasi?
+air flow			-belum keriset
+ml flow				-belum keriset

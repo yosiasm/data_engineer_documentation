@@ -1,0 +1,23 @@
+PUT /cavideos
+{
+  "mappings":{
+    "properties":{
+      "video_id" :{"type":"text"},
+      "trending_date":{"type":"date", "format":"yy.dd.MM"},
+      "title":{"type":"keyword"},
+      "channel_title":{"type":"keyword"},
+      "category_id":{"type":"text"},
+      "publish_time":{"type":"date","format":"yyyy-MM-dd'T'hh:mm:ss.ssZ"},
+      "tags":{"type":"keyword"},
+      "views":{"type":"integer"},
+      "likes":{"type":"integer"},
+      "dislikes":{"type":"integer"},
+      "comment_count":{"type":"integer"},
+      "thumbnail_link":{"type":"text"},
+      "comments_disabled":{"type":"boolean"},
+      "ratings_disabled":{"type":"boolean"},
+      "video_error_or_removed":{"type":"boolean"},
+      "description":{"type":"keyword"}
+    }
+  }
+}

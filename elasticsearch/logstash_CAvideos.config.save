@@ -1,0 +1,35 @@
+input {
+	file {
+		path => "/home/broker/belajar/elasticsearch/data_video.csv"
+		start_position => "beginning"
+		sincedb_path => "/home/broker/belajar/elasticsearch/sincedb2"
+	}
+}
+filter {
+	csv {
+		separator => ","		
+		columns => ['video_id', 'trending_date', 'title', 'channel_title', 'category_id',
+       'publish_time', 'tags', 'views', 'likes', 'dislikes', 'comment_count',
+       'thumbnail_link', 'comments_disabled', 'ratings_disabled',
+       'video_error_or_removed']
+		
+	}
+	mutate { convert => ["views" , "integer"] }
+	mutate { convert => ["likes" , "integer"] }
+	mutate { convert => ["dislikes" , "integer"] }
+	mutate { convert => ["comment_count" , "integer"] }
+	mutate { convert => ["comments_disabled" , "boolean"] }
+	mutate { convert => ["ratings_disabled" , "integer"] }
+	mutate { convert => ["video_error_or_removed" , "boolean"] }
+
+
+}
+output {
+    #stdout {codec => rubydebug}
+    elasticsearch {
+		hosts=>"127.0.0.1:9200"
+        index => "data_video"
+        document_type => "youtube_trending"
+        document_id => "%{youtube_trending}"
+    }
+}

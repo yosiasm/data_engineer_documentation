@@ -1,0 +1,32 @@
+docker pull strapdata/elassandra:{VERSION} 		6.8.4.0
+docker image ls
+docker run -p 9200:9200 -p 9042:9042 --name {CONTAINER_NAME} -d {IMAGE_NAME:VERSION | ID}
+-d buat background
+docker exec -it {CONTAINER_NAME} curl http://localhost:9200
+docker exec -it {CONTAINER_NAME} /bin/bash
+docker logs {CONTAINER_NAME}
+sysctl -w vm.max_map_count=262144
+docker start {CONTAINER_NAME}
+docker exec -it {CONTAINER_NAME} cqlsh
+docker container stop {CONTAINER_NAME | CONTAINER_ID}
+
+docker exec -it {CONTAINER_NAME} curl -XPUT 'http://localhost:9200/twitter/_doc/1?pretty' -H 'Content-Type: application/json' -d '{
+    "user": "Poulpy",
+    "post_date": "2017-10-04T13:12:00Z",
+    "message": "Elassandra adds dynamic mapping to Cassandra"
+}'
+membuat index di elasticsearch
+
+docker exec -it {CONTAINER_NAME} cqlsh -e "SELECT * from twitter.\"_doc\""
+melihat data yang juga telah masuk di cassandra
+
+docker exec -it {CONTAINER_NAME} cqlsh
+kemudian 
+INSERT INTO twitter."_doc" ("_id", user, post_date, message)
+VALUES ( '2', ['Jimmy'], [dateof(now())], ['New data is indexed automatically']);
+SELECT * FROM twitter."_doc";
+membuat row baru di cassandra
+
+docker exec -it {CONTAINER_NAME} curl "localhost:9200/twitter/_search?q=user:Jimmy&pretty"
+melihat data yang telah masuk di elastic search
+

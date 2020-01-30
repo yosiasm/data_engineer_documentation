@@ -1,0 +1,37 @@
+elk stack : https://www.edureka.co/blog/elk-stack-tutorial/
+mapping schemas : https://www.youtube.com/watch?v=h3i3pqwjtjA
+elasticsearch basic concepts : https://www.youtube.com/watch?v=8r_IMTerZSY
+install elasticsearch : https://www.youtube.com/watch?v=yVOcFMe9I4c
+Logstash to load CSV into Elasticsearch : https://www.youtube.com/watch?v=rKy4sFbIZ3U
+kibana visualization : https://www.youtube.com/watch?v=imrKm6dV3NQ
+enriching logs logstash : https://www.youtube.com/watch?v=EFYeeNvhBm4
+change mapping with zero downtime : https://www.elastic.co/blog/changing-mapping-with-zero-downtime
+date iso 8601 : https://www.elastic.co/guide/en/elasticsearch/hadoop/master/mapping.html
+
+
+1. buka elastic -> atur indexing  -> atur mapping -> buka logstash
+2. jika date tetap dianggap sebagai string hapus index pattern di kibana management kemudian buat index pattern baru lagi
+1. logstash membaca 2 baris pertama csv jadi header -> logstash/config/logstash.yml pipeline.workers:2 jadiin 1
+2. tetap error walaupun sudah di konfigurasi -> hapus index di elasticsearch
+
+
+
+["index", {:_id=>nil, :_index=>"temperature2", :routing=>nil, :_type=>"_doc"}, #<LogStash::Event:0xce83461>], 
+	:response=>{
+		"index"=>{
+			"_index"=>"temperature2", 
+			"_type"=>"_doc",
+			"_id"=>"V-tI1m8BMpRkXw_mFK5Z", 
+			"status"=>400, 
+			"error"=>{"type"=>"mapper_parsing_exception", 
+			"reason"=>"failed to parse field [dt] of type [date] in document with id 'V-tI1m8BMpRkXw_mFK5Z'. Preview of field's value: '1858-01-31T16:52:48.000Z'",
+			"caused_by"=>{
+				"type"=>"illegal_argument_exception", 
+				"reason"=>"failed to parse date field [1858-01-31T16:52:48.000Z] with format [yyyy-MM-dd]", 
+				"caused_by"=>{"type"=>"date_time_parse_exception", 
+				"reason"=>"Text '1858-01-31T16:52:48.000Z' could not be parsed, unparsed text found at index 10"
+			}
+		}
+	}
+	}}}
+
