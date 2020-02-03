@@ -1,7 +1,14 @@
 docker pull strapdata/elassandra:{VERSION} 		6.8.4.0
 docker image ls
+
+
 docker run -p 9200:9200 -p 9042:9042 --name {CONTAINER_NAME} -d {IMAGE_NAME:VERSION | ID}
 -d buat background
+
+cassandra gabisa jalan rpc not running
+docker run --name cassandra1 -d -e CASSANDRA_START_RPC=true -p 9160:9160 -p 9042:9042 -p 7199:7199 -p 7001:7001 -p 7000:7000 cassandra
+
+
 docker exec -it {CONTAINER_NAME} curl http://localhost:9200
 docker exec -it {CONTAINER_NAME} /bin/bash
 docker logs {CONTAINER_NAME}
@@ -30,3 +37,5 @@ membuat row baru di cassandra
 docker exec -it {CONTAINER_NAME} curl "localhost:9200/twitter/_search?q=user:Jimmy&pretty"
 melihat data yang telah masuk di elastic search
 
+
+documentation https://elassandra.readthedocs.io/en/latest/index.html
